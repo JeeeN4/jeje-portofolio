@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { FileDown } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react"; // <-- 1. Import useState untuk interaktivitas layar sentuh (mobile)
+import { useState } from "react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Hero() {
@@ -35,9 +35,8 @@ export default function Hero() {
                     duration: 0.3,
                   },
                 }}
-                /* 2. Tambahkan onClick untuk memicu mode pixel saat foto disentuh/di-tap di HP */
+                /* Memicu mode pixel saat foto disentuh/di-tap di HP */
                 onClick={() => setIsPixelMode(!isPixelMode)}
-                /* Gunakan conditional class atau group agar bereaksi baik oleh mouse (hover) maupun jari (isPixelMode) */
                 className={`card-retro group relative p-4 cursor-pointer shadow-[6px_6px_0px_0px_var(--border)] transition-all duration-300 ${
                   isPixelMode
                     ? "shadow-[8px_8px_0px_0px_var(--primary)]"
@@ -46,19 +45,31 @@ export default function Hero() {
               >
                 {/* Kontainer Gambar */}
                 <div className="relative aspect-square w-full max-w-[320px] overflow-hidden bg-background">
-                  {/* 1. GAMBAR PIXEL (Di Belakang) */}
+                  {/* 1A. GAMBAR PIXEL - LIGHT MODE (Di Belakang - Tampil di latar terang) */}
                   <Image
-                    src="/profile-dije-pixel.png" // <-- Masukkan nama file pixel art Anda di sini!
-                    alt="Dije Naufal Pixel Mode"
+                    src="/profile-hero-pixel.png" // <-- Foto Pixel Art versi Siang
+                    alt="Dije Naufal Pixel Mode - Light"
                     width={320}
                     height={320}
                     loading="eager"
-                    className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 ${
+                    className={`absolute inset-0 h-full w-full object-cover block dark:hidden transition-transform duration-500 ${
                       isPixelMode ? "scale-105" : "group-hover:scale-105"
                     }`}
                   />
 
-                  {/* 2. LAPISAN EFEK MONITOR CRT/SCANLINE (Muncul saat di-hover ATAU saat di-tap di HP) */}
+                  {/* 1B. GAMBAR PIXEL - DARK MODE (Di Belakang - Tampil di latar gelap) */}
+                  <Image
+                    src="/profile-hero-pixel-darkmode.png" // <-- Foto Pixel Art versi Malam
+                    alt="Dije Naufal Pixel Mode - Dark"
+                    width={320}
+                    height={320}
+                    loading="eager"
+                    className={`absolute inset-0 h-full w-full object-cover hidden dark:block transition-transform duration-500 ${
+                      isPixelMode ? "scale-105" : "group-hover:scale-105"
+                    }`}
+                  />
+
+                  {/* 2. LAPISAN EFEK MONITOR CRT/SCANLINE */}
                   <div
                     className={`pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-size-[100%_4px] transition-opacity duration-300 ${
                       isPixelMode
@@ -67,14 +78,28 @@ export default function Hero() {
                     }`}
                   />
 
-                  {/* 3. GAMBAR ASLI (Di Depan - Memudar saat di-hover ATAU di-tap di HP) */}
+                  {/* 3A. GAMBAR ASLI - LIGHT MODE (Di Depan - Gaib di Dark Mode) */}
                   <Image
-                    src="/profile-dije.png"
-                    alt="Dije Naufal"
+                    src="/profile-hero.png" // <-- Foto normal versi Siang
+                    alt="Dije Naufal - Light Mode"
                     width={320}
                     height={320}
                     priority
-                    className={`relative z-20 h-auto w-full max-w-[320px] object-cover transition-all duration-500 ease-out ${
+                    className={`relative z-20 h-auto w-full max-w-[320px] object-cover block dark:hidden transition-all duration-500 ease-out ${
+                      isPixelMode
+                        ? "scale-95 opacity-0"
+                        : "group-hover:scale-95 group-hover:opacity-0"
+                    }`}
+                  />
+
+                  {/* 3B. GAMBAR ASLI - DARK MODE (Di Depan - Gaib di Light Mode) */}
+                  <Image
+                    src="/profile-hero-darkmode.png" // <-- Foto normal versi Malam
+                    alt="Dije Naufal - Dark Mode"
+                    width={320}
+                    height={320}
+                    priority
+                    className={`relative z-20 h-auto w-full max-w-[320px] object-cover hidden dark:block transition-all duration-500 ease-out ${
                       isPixelMode
                         ? "scale-95 opacity-0"
                         : "group-hover:scale-95 group-hover:opacity-0"
@@ -86,7 +111,7 @@ export default function Hero() {
                 <div
                   className={`absolute -bottom-3 right-4 z-30 border-2 border-border px-2.5 py-0.5 text-[10px] font-bold text-mono tracking-widest shadow-[2px_2px_0px_0px_var(--border)] transition-colors ${
                     isPixelMode
-                      ? "bg-primary text-white"
+                      ? "bg-primary text-primary-foreground"
                       : "bg-card text-primary group-hover:bg-primary group-hover:text-primary-foreground"
                   }`}
                 >
@@ -104,7 +129,6 @@ export default function Hero() {
                   </span>
                 </div>
               </motion.div>
-              {/* --------------------------------------------------------------- */}
             </div>
           </ScrollReveal>
 

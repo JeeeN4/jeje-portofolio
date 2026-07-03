@@ -22,12 +22,72 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
+  // 1. Ganti dengan domain Vercel/kustom Anda nanti (wajib agar gambar OpenGraph terbaca!)
+  metadataBase: new URL("https://dije-naufal.vercel.app"),
+
   title: {
-    default: "Dije Naufal",
+    default: "Dije Naufal | Mobile App Developer & AI Learner",
     template: "%s | Dije Naufal",
   },
   description:
-    "Data Analyst & Software Developer building data-driven and IoT solutions.",
+    "Portfolio of Dije Naufal, an Information Systems student specializing in Mobile Development, Machine Learning, AI Integration, and Backend Systems.",
+  keywords: [
+    "Dije Naufal",
+    "Mobile App Developer",
+    "Flutter Developer",
+    "React Native Developer",
+    "Machine Learning",
+    "Artificial Intelligence",
+    "Backend Developer",
+    "Software Engineer Indonesia",
+    "FitSense",
+    "Next.js Portfolio",
+  ],
+  authors: [{ name: "Dije Naufal", url: "https://github.com/JeeeN4" }],
+  creator: "Dije Naufal",
+  publisher: "Dije Naufal",
+
+  // 2. OpenGraph (Tampilan saat link portofolio dishare di WhatsApp, LinkedIn, Discord)
+  openGraph: {
+    type: "website",
+    locale: "en_US", // atau "en_US"
+    url: "https://dije-naufal.vercel.app",
+    title: "Dije Naufal | Mobile App Developer & AI Learner",
+    description:
+      "Explore the digital wayfarer portfolio of Dije Naufal. Building intelligent mobile experiences, IoT platforms (FitSense), and scalable systems.",
+    siteName: "Dije Naufal Portfolio",
+    // Gambar preview akan otomatis diambil dari file opengraph-image.png di folder app (Pilar 4)
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Dije Naufal Portfolio",
+      },
+    ],
+  },
+
+  // 3. Twitter Card
+  twitter: {
+    card: "summary_large_image",
+    title: "Dije Naufal | Mobile App Developer & AI Learner",
+    description:
+      "Building intelligent mobile experiences by combining mobile development, data-driven insights, and AI technologies.",
+    images: ["/opengraph-image.png"],
+  },
+
+  // 4. Mencegah indeks pada halaman error atau penyesuaian robot crawler
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
