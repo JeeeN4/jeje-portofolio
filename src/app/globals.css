@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+/* 1. Mendaftarkan kustom varian dark mode standar Tailwind v4 */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -39,6 +40,12 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  
+  /* Variabel Seksi Kustom Kita */
+  --color-section-main: var(--section-main);
+  --color-section-alt: var(--section-alt);
+  --color-section-card: var(--section-card);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -48,10 +55,15 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ==========================================================================
+   2. PALET TEMA TERANG: "DAY WAYFARER" (Digital Wilderness)
+   ========================================================================== */
 :root {
   --section-main: #fbfbe2;
   --section-alt: #efefd7;
   --section-card: #f5f5dc;
+  
+  --background: #fbfbe2;
   --foreground: #1b1d0e;
 
   --card: #f5f5dc;
@@ -60,32 +72,70 @@
   --popover: #ffffff;
   --popover-foreground: #1b1d0e;
 
-  --primary: #154212;
+  --primary: #154212;          /* Forest Green */
   --primary-foreground: #ffffff;
 
-  --secondary: #77574d;
+  --secondary: #77574d;        /* Earth Brown */
   --secondary-foreground: #ffffff;
 
-  --accent: #003a6c;
+  --accent: #003a6c;           /* Muted Blue */
   --accent-foreground: #ffffff;
 
   --muted: #e4e4cc;
   --muted-foreground: #42493e;
 
-  --border: #77574d;
+  --border: #77574d;           /* Earth Brown Border */
   --input: #c2c9bb;
-
   --ring: #3b6934;
+
+  --radius: 0px;               /* 100% Sharp Corner 0px ala Retro Arcade */
+}
+
+/* ==========================================================================
+   3. PALET TEMA GELAP: "NIGHT EXPEDITION" (Tactical Night Mode)
+   ========================================================================== */
+.dark {
+  --section-main: #0b1609;     /* Deep Forest / Near-Black Green */
+  --section-alt: #131e11;      /* Charcoal Forest Tint */
+  --section-card: #172215;     /* Tactical Instrument Surface */
+  
+  --background: #0b1609;
+  --foreground: #d9e7d1;       /* Light Cream / High-Contrast Reading */
+
+  --card: #172215;
+  --card-foreground: #d9e7d1;
+
+  --popover: #131e11;
+  --popover-foreground: #d9e7d1;
+
+  --primary: #6bfb9a;          /* Vibrant Tactical Mint / Sage Green */
+  --primary-foreground: #003919; /* Deep Green Teks di atas tombol Mint */
+
+  --secondary: #e9c176;        /* Muted Gold / Vintage Brass */
+  --secondary-foreground: #412d00;
+
+  --accent: #baeeac;
+  --accent-foreground: #0a3909;
+
+  --muted: #212d1f;
+  --muted-foreground: #a8b5a1; /* Muted Sage untuk teks sekunder */
+
+  --border: #c5a059;           /* Vintage Brass / Gold Border */
+  --input: #2c3829;
+  --ring: #4ade80;
 
   --radius: 0px;
 }
 
+/* ==========================================================================
+   4. BASE LAYER & STYLES
+   ========================================================================== */
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
   html {
     @apply font-sans;
@@ -120,15 +170,56 @@ select {
   border-radius: 0;
 }
 
+/* ==========================================================================
+   OPTIMASI TOUCHSCREEN & ANTI-STUCK BUTTON (UPGRADED)
+   ========================================================================== */
+button,
+a,
+img,
+.card-retro {
+  /* 1. Mencegah browser menyeleksi teks saat tombol/kartu ditekan lama */
+  user-select: none;
+  -webkit-user-select: none;
+
+  /* 2. Mencegah munculnya menu pop-up (Copy/Share) di HP saat long-press */
+  -webkit-touch-callout: none;
+
+  /* 3. Menghilangkan kotak highlight biru bawaan browser Android/iOS */
+  -webkit-tap-highlight-color: transparent;
+
+  /* 4. MENCEGAH GHOST DRAGGING: Biar gak nyangkut saat diklik-tahan-geser! */
+  -webkit-user-drag: none;
+
+  /* 5. Mengoptimalkan respons ketukan jari & scroll layar */
+  touch-action: manipulation;
+}
+
+/* Mencegah status fokus (outline) nyangkut setelah tombol dilepas */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ==========================================================================
+   5. RETRO ARCADE COMPONENTS & INTERACTIVITY
+   ========================================================================== */
 .card-retro {
   background: var(--card);
-
   border: 2px solid var(--border);
-
   transition: all 0.2s ease;
 }
 
-.card-retro:hover {
+/* ANTI-STICKY HOVER: Efek hover KECUALI di layar sentuh (HP/Tablet) 
+   Hanya aktif di perangkat yang punya kursor mouse asli (PC/Laptop) */
+@media (hover: hover) and (pointer: fine) {
+  .card-retro:hover {
+    border-bottom: 4px solid var(--primary);
+    transform: translateY(-2px);
+  }
+}
+
+/* Untuk layar sentuh (HP), kartu hanya bereaksi saat DISENTUH (active), gak nyangkut! */
+.card-retro:active {
   border-bottom: 4px solid var(--primary);
   transform: translateY(-2px);
 }
@@ -144,7 +235,7 @@ select {
 
 ::selection {
   background: var(--primary);
-  color: white;
+  color: var(--primary-foreground);
 }
 
 .headline-md {

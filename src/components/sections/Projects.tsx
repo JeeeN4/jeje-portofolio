@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export default function Projects() {
   return (
-    <section id="projects" className="section-padding bg-(--section-card)">
+    <section id="projects" className="section-padding bg-section-card">
       <div className="container-custom">
         <ScrollReveal>
           <div className="mb-10 text-center md:mb-12">
@@ -25,6 +25,7 @@ export default function Projects() {
                   alt="FitSense Preview"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="eager"
                   className="object-contain p-6 transition-transform duration-500 ease-in-out group-hover:scale-105 group-active:scale-105"
                 />
 
@@ -97,7 +98,7 @@ export default function Projects() {
 
                   <a
                     href="#"
-                    className="flex items-center justify-center gap-2 border-2 border-border bg-card px-5 py-3 uppercase tracking-wider text-foreground transition-all active:-translate-y-1 active:bg-primary active:text-white sm:hover:-translate-y-1 sm:hover:bg-primary sm:hover:text-white shadow-[3px_3px_0px_0px_var(--border)] w-full sm:w-auto"
+                    className="flex items-center justify-center gap-2 border-2 border-border bg-card px-5 py-3 uppercase tracking-wider text-foreground transition-all active:-translate-y-1 active:bg-primary active:text-primary-foreground sm:hover:-translate-y-1 sm:hover:bg-primary sm:hover:text-primary-foreground shadow-[3px_3px_0px_0px_var(--border)] w-full sm:w-auto"
                   >
                     <Layers className="h-4 w-4 shrink-0" />
                     <span>Architecture</span>

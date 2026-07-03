@@ -11,7 +11,7 @@ export default function Hero() {
   const [isPixelMode, setIsPixelMode] = useState(false);
 
   return (
-    <section id="home" className="section-padding bg-(--section-main)">
+    <section id="home" className="section-padding bg-section-main">
       <div className="container-custom">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           {/* GELOMBANG 1: Left - Profile Image (Muncul instan / Delay 0) */}
@@ -87,7 +87,7 @@ export default function Hero() {
                   className={`absolute -bottom-3 right-4 z-30 border-2 border-border px-2.5 py-0.5 text-[10px] font-bold text-mono tracking-widest shadow-[2px_2px_0px_0px_var(--border)] transition-colors ${
                     isPixelMode
                       ? "bg-primary text-white"
-                      : "bg-card text-primary group-hover:bg-primary group-hover:text-white"
+                      : "bg-card text-primary group-hover:bg-primary group-hover:text-primary-foreground"
                   }`}
                 >
                   <span
@@ -163,7 +163,7 @@ export default function Hero() {
                   {/* Tombol View Projects (Secondary Button) */}
                   <a
                     href="#projects"
-                    className="border-2 border-border bg-card px-6 py-3 uppercase tracking-wider text-foreground transition-all hover:-translate-y-1 hover:bg-primary hover:text-white hover:border-primary shadow-[3px_3px_0px_0px_var(--border)] hover:shadow-[5px_5px_0px_0px_var(--primary)]"
+                    className="border-2 border-border bg-card px-6 py-3 uppercase tracking-wider text-foreground transition-all sm:hover:-translate-y-1 active:-translate-y-1 active:bg-primary active:text-primary-foreground sm:hover:bg-primary sm:hover:text-primary-foreground sm:hover:border-primary shadow-[3px_3px_0px_0px_var(--border)] sm:hover:shadow-[5px_5px_0px_0px_var(--primary)] active:shadow-[5px_5px_0px_0px_var(--primary)]"
                   >
                     View Projects
                   </a>

@@ -27,7 +27,7 @@ const objectives = [
 
 export default function Objectives() {
   return (
-    <section id="objectives" className="section-padding bg-(--section-alt)">
+    <section id="objectives" className="section-padding bg-section-alt">
       <div className="container-custom">
         <ScrollReveal>
           <div className="mb-10 text-center md:mb-12">

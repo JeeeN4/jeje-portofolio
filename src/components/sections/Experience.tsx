@@ -42,7 +42,7 @@ const journey = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-padding bg-(--section-main)">
+    <section id="experience" className="section-padding bg-section-main">
       <div className="container-custom">
         <ScrollReveal>
           <div className="mb-10 text-center md:mb-12">
@@ -69,7 +69,7 @@ export default function Experience() {
                   <div
                     className={`absolute left-0.5 sm:left-3 top-1.5 flex h-7 w-7 items-center justify-center border-2 transition-colors ${
                       item.isActive
-                        ? "border-primary bg-primary text-white shadow-[0_0_10px_rgba(var(--primary),0.5)]"
+                        ? "border-primary bg-primary text-primary-foreground shadow-[0_0_10px_rgba(var(--primary),0.5)]"
                         : "border-border bg-card text-muted-foreground group-hover:border-primary group-active:border-primary group-hover:text-primary group-active:text-primary"
                     }`}
                   >
