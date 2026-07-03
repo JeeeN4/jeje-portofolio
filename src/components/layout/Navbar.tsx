@@ -2,6 +2,7 @@
 
 import { Menu, X, Compass } from "lucide-react";
 import { useState } from "react";
+import { motion } from "framer-motion"; // <-- 1. Import motion dari framer-motion
 
 // The Big 5: 5 Pilar Utama Navigasi
 const navItems = [
@@ -18,14 +19,31 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b-2 border-border bg-(--section-main)/95 backdrop-blur-sm">
       <div className="container-custom flex h-16 items-center justify-between">
-        {/* Logo dengan Tambahan Ikon Compass */}
+        {/* Logo dengan Tambahan Ikon Compass Beranimasi & Ukuran Lebih Besar */}
         <a
           href="#home"
-          className="heading-primary flex items-center gap-2 text-lg text-primary transition-opacity hover:opacity-80"
+          className="heading-primary flex items-center gap-2.5 text-lg text-primary transition-opacity hover:opacity-80 group"
         >
-          {/* Ikon Compass bergaya retro dengan sedikit animasi putar saat dihover */}
-          <Compass className="h-5 w-5 animate-pulse text-primary" />
-          <span>JEJE_DEV</span>
+          <motion.div
+            animate={{
+              rotate: [0, 10, -5, 5, 0],
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            whileHover={{
+              rotate: 360,
+              transition: { duration: 0.6, ease: "easeOut" },
+            }}
+            className="flex items-center justify-center shrink-0" // <-- Tambah shrink-0
+          >
+            {/* UBAH DI SINI: Naikkan ukuran dari h-5 w-5 menjadi h-7 w-7 (atau h-8 w-8) */}
+            <Compass className="h-7 w-7 text-primary stroke-[2.2]" />
+          </motion.div>
+
+          <span className="tracking-wider pt-0.5">JEJE_DEV</span>
         </a>
 
         {/* Desktop Menu - Jarak dikembalikan ke gap-8 agar lebih lega */}

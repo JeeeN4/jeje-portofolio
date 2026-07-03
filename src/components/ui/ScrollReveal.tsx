@@ -5,23 +5,22 @@ import { ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
-  delay?: number; // Untuk efek berurutan (stagger)
+  delay?: number;
+  className?: string; // <-- Tambahkan ini
 }
 
 export default function ScrollReveal({
   children,
   delay = 0,
+  className = "", // <-- Nilai default string kosong
 }: ScrollRevealProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }} // Mulai dari transparan dan sedikit di bawah
-      whileInView={{ opacity: 1, y: 0 }} // Muncul dan naik ke posisi asli saat terlihat layar
-      viewport={{ once: true, margin: "-100px" }} // Animasi jalan sekali saja saat masuk layar
-      transition={{
-        duration: 0.6,
-        delay: delay,
-        ease: "easeOut",
-      }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.6, delay: delay, ease: "easeOut" }}
+      className={className} // <-- Pasang class di sini agar bisa diregangkan!
     >
       {children}
     </motion.div>

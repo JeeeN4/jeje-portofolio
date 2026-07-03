@@ -1,4 +1,5 @@
 import { Smartphone, Server, Bot, Brain } from "lucide-react";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const objectives = [
   {
@@ -26,38 +27,45 @@ const objectives = [
 
 export default function Objectives() {
   return (
-    /* Menggunakan sintaks resmi Tailwind v4: bg-(--section-alt) */
     <section id="objectives" className="section-padding bg-(--section-alt)">
       <div className="container-custom">
-        <div className="mb-12 text-center">
-          <p className="text-mono text-primary mb-2 font-bold tracking-widest">
-            QUEST OBJECTIVES
-          </p>
-          <h2 className="headline-md">Current Areas of Focus</h2>
-        </div>
+        <ScrollReveal>
+          <div className="mb-10 text-center md:mb-12">
+            <p className="text-mono text-primary mb-2 font-bold tracking-widest">
+              QUEST OBJECTIVES
+            </p>
+            <h2 className="headline-md">Current Areas of Focus</h2>
+          </div>
+        </ScrollReveal>
 
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {objectives.map((item) => {
+        <div className="grid gap-5 sm:gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {objectives.map((item, index) => {
             const Icon = item.icon;
 
             return (
-              <div
+              /* OPTIMASI MOBILE: Delay dipercepat (index * 0.1) agar saat di-scroll di HP tidak lambat */
+              <ScrollReveal
                 key={item.title}
-                className="card-retro group flex flex-col p-6 cursor-default"
+                delay={index * 0.1}
+                className="h-full"
               >
-                {/* Kotak Ikon Retro: Ditambahkan w-fit agar kotaknya pas seukuran ikon saja */}
-                <div className="mb-5 w-fit border-2 border-border bg-card p-3 text-primary shadow-[2px_2px_0px_0px_var(--border)] transition-all group-hover:-translate-y-1 group-hover:bg-primary group-hover:text-white">
-                  <Icon size={26} />
+                <div className="card-retro group flex flex-col justify-between p-6 cursor-default h-full transition-all duration-200 active:-translate-y-1 sm:hover:-translate-y-1">
+                  <div>
+                    {/* OPTIMASI MOBILE: Ditambahkan group-active: untuk merespons ketukan jempol di HP */}
+                    <div className="mb-5 w-fit border-2 border-border bg-card p-3 text-primary shadow-[2px_2px_0px_0px_var(--border)] transition-all group-hover:-translate-y-1 group-active:-translate-y-1 group-hover:bg-primary group-active:bg-primary group-hover:text-white group-active:text-white">
+                      <Icon size={26} />
+                    </div>
+
+                    <h3 className="heading-primary mb-3 text-lg transition-colors group-hover:text-primary group-active:text-primary">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  <p className="text-sm leading-7 text-muted-foreground">
+                    {item.description}
+                  </p>
                 </div>
-
-                <h3 className="heading-primary mb-3 text-lg transition-colors group-hover:text-primary">
-                  {item.title}
-                </h3>
-
-                <p className="text-sm leading-7 text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>
