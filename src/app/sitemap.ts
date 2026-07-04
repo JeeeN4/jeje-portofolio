@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Ganti dengan domain Vercel Anda nanti
-  const baseUrl = "https://dije-naufal.vercel.app";
+  const baseUrl = "https://www.dijenaufal.dev";
 
   return [
     {

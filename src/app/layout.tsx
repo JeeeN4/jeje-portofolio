@@ -23,7 +23,7 @@ const spaceMono = Space_Mono({
 
 export const metadata: Metadata = {
   // 1. Ganti dengan domain Vercel/kustom Anda nanti (wajib agar gambar OpenGraph terbaca!)
-  metadataBase: new URL("https://dije-naufal.vercel.app"),
+  metadataBase: new URL("https://www.dijenaufal.dev"),
 
   title: {
     default: "Dije Naufal | Mobile App Developer & AI Learner",
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   // 2. OpenGraph (Tampilan saat link portofolio dishare di WhatsApp, LinkedIn, Discord)
   openGraph: {
     type: "website",
-    locale: "en_US", // atau "en_US"
-    url: "https://dije-naufal.vercel.app",
+    locale: "en_ID", // atau "en_US" jika ingin menargetkan Indonesia
+    url: "https://www.dijenaufal.dev",
     title: "Dije Naufal | Mobile App Developer & AI Learner",
     description:
       "Explore the digital wayfarer portfolio of Dije Naufal. Building intelligent mobile experiences, IoT platforms (FitSense), and scalable systems.",
