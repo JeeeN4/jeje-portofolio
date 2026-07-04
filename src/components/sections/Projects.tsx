@@ -21,7 +21,7 @@ export default function Projects() {
               {/* KIRI: Image Preview - OPTIMASI MOBILE: min-h-64 di HP agar tidak memakan layar terlalu panjang */}
               <div className="group relative flex min-h-64 sm:min-h-80 w-full items-center justify-center overflow-hidden border-b-2 border-border bg-card/50 lg:min-h-full lg:border-r-2 lg:border-b-0">
                 <Image
-                  src="/projects/fitsense.png"
+                  src="/projects/Fitsense.png"
                   alt="FitSense Preview"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
