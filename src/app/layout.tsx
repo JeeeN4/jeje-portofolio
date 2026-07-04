@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Space_Mono } from "next/font/google";
+// --> 1. IMPORT VERCEL ANALYTICS DI SINI <--
+import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
 // 1. Import ThemeProvider yang sudah dibuat (sesuaikan path jika berbeda)
@@ -114,6 +116,9 @@ export default function RootLayout({
           <main className="grow">{children}</main>
           {/* <Footer /> */}
         </ThemeProvider>
+
+        {/* --> 2. PASANG RADAR ANALYTICS DI SINI <-- */}
+        <Analytics />
       </body>
     </html>
   );
