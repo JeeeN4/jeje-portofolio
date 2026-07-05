@@ -50,14 +50,21 @@ export const metadata: Metadata = {
   creator: "Dije Naufal",
   publisher: "Dije Naufal",
 
-  // 2. OpenGraph (Tampilan saat link portofolio dishare di WhatsApp, LinkedIn, Discord)
+  // --> 2. KONFIGURASI ICON (FAVICON) DI SINI <--
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png", // Ikon saat web disave ke home screen iOS/Android
+  },
+
+  // 3. OpenGraph (Tampilan saat link portofolio dishare di WhatsApp, LinkedIn, Discord)
   openGraph: {
     type: "website",
     locale: "en_ID", // atau "en_US" jika ingin menargetkan Indonesia
     url: "https://www.dijenaufal.dev",
     title: "Dije Naufal | Mobile App Developer & AI Learner",
     description:
-      "Explore the digital wayfarer portfolio of Dije Naufal. Building intelligent mobile experiences, IoT platforms (FitSense), and scalable systems.",
+      "Explore the portfolio of Dije Naufal. Building intelligent mobile experiences, modern software solutions, and scalable systems.",
     siteName: "Dije Naufal Portfolio",
     // Gambar preview akan otomatis diambil dari file opengraph-image.png di folder app (Pilar 4)
     images: [
@@ -70,7 +77,7 @@ export const metadata: Metadata = {
     ],
   },
 
-  // 3. Twitter Card
+  // 4. Twitter Card
   twitter: {
     card: "summary_large_image",
     title: "Dije Naufal | Mobile App Developer & AI Learner",
@@ -79,7 +86,7 @@ export const metadata: Metadata = {
     images: ["/opengraph-image.png"],
   },
 
-  // 4. Mencegah indeks pada halaman error atau penyesuaian robot crawler
+  // 5. Mencegah indeks pada halaman error atau penyesuaian robot crawler
   robots: {
     index: true,
     follow: true,
@@ -101,7 +108,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable}`}
+      className={`scroll-smooth ${spaceGrotesk.variable} ${inter.variable} ${spaceMono.variable}`}
     >
       <body className="font-sans antialiased min-h-screen flex flex-col">
         {/* 3. Bungkus seluruh isi aplikasi dengan ThemeProvider */}

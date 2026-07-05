@@ -1,9 +1,10 @@
 "use client";
 
 import { Menu, X, Compass } from "lucide-react";
-import { useState } from "react";
+// 1. Tambahkan useEffect di Sini!
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import ThemeToggle from "@/components/ui/ThemeToggle"; // <-- 1. Import komponen ThemeToggle di sini!
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const navItems = [
   { label: "Home", href: "#home" },
@@ -15,6 +16,41 @@ const navItems = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  // 2. State untuk menyimpan section mana yang sedang aktif
+  const [activeSection, setActiveSection] = useState("home");
+
+  // --- 3. RADAR SENSOR SCROLL SPY ---
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      // Deteksi section saat mencapai sepertiga bagian atas layar
+      rootMargin: "-100px 0px -40% 0px",
+      threshold: 0.1,
+    };
+
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && entry.target.id) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      observerCallback,
+      observerOptions,
+    );
+
+    // Daftarkan semua section ke dalam sensor
+    navItems.forEach((item) => {
+      const id = item.href.replace("#", ""); // Mengubah "#about" menjadi "about"
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+  // ----------------------------------
 
   // --- FUNGSI PINTAR UNTUK MENGATUR SCROLL ---
   const handleScroll = (
@@ -22,6 +58,9 @@ export default function Navbar() {
     targetId: string,
   ) => {
     e.preventDefault();
+
+    // Set langsung activeSection saat diklik agar instan merespons
+    setActiveSection(targetId.replace("#", ""));
 
     const element = document.querySelector(targetId);
     if (!element) return;
@@ -73,19 +112,28 @@ export default function Navbar() {
           <span className="tracking-wider pt-0.5">JEJE_DEV</span>
         </a>
 
-        {/* 2. Desktop Navigation & Theme Toggle */}
+        {/* 4. Desktop Navigation & Theme Toggle */}
         <div className="hidden md:flex items-center gap-8">
           <nav className="flex items-center gap-8 text-mono">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleScroll(e, item.href)}
-                className="text-sm font-medium text-foreground transition-colors hover:text-primary underline-offset-4 hover:underline cursor-pointer"
-              >
-                {item.label}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              // Mengecek apakah menu ini sedang aktif
+              const isActive = activeSection === item.href.replace("#", "");
+
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleScroll(e, item.href)}
+                  className={`text-sm font-bold transition-all duration-200 cursor-pointer underline-offset-8 ${
+                    isActive
+                      ? "text-primary underline decoration-2 decoration-primary scale-105"
+                      : "text-foreground hover:text-primary hover:underline hover:decoration-border"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Posisi ThemeToggle untuk Desktop (di kanan menu) */}
@@ -94,7 +142,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* 3. Mobile Buttons: Theme Toggle & Hamburger Menu */}
+        {/* 5. Mobile Buttons: Theme Toggle & Hamburger Menu */}
         <div className="flex items-center gap-3 md:hidden">
           {/* Posisi ThemeToggle untuk HP (di sebelah tombol menu) */}
           <ThemeToggle />
@@ -109,7 +157,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu dengan Animasi Slide Down */}
+      {/* 6. Mobile Menu dengan Animasi Slide Down & Active Highlight */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -119,17 +167,26 @@ export default function Navbar() {
             transition={{ duration: 0.25, ease: "easeInOut" }}
             className="border-t-2 border-border bg-section-main md:hidden overflow-hidden shadow-[0_8px_0_0_rgba(0,0,0,0.05)]"
           >
-            <nav className="container-custom flex flex-col py-4 text-mono">
-              {navItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleScroll(e, item.href)}
-                  className="border-b border-border/20 py-3 text-sm font-medium transition-all active:text-primary active:translate-x-1 cursor-pointer"
-                >
-                  {item.label}
-                </a>
-              ))}
+            <nav className="container-custom flex flex-col py-4 text-mono gap-1">
+              {navItems.map((item) => {
+                // Mengecek apakah menu ini sedang aktif di HP
+                const isActive = activeSection === item.href.replace("#", "");
+
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => handleScroll(e, item.href)}
+                    className={`px-3 py-2.5 text-sm font-bold transition-all cursor-pointer ${
+                      isActive
+                        ? "border-2 border-border bg-primary text-primary-foreground shadow-[2px_2px_0px_0px_var(--border)] translate-x-1"
+                        : "border-b border-border/20 text-foreground active:text-primary active:translate-x-1"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
             </nav>
           </motion.div>
         )}
